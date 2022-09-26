@@ -138,7 +138,7 @@ func (s SendgridPlugin) GraphDefinition() map[string]mp.Graphs {
 	prefix := cases.Title(language.English).String(s.MetricKeyPrefix())
 
 	return map[string]mp.Graphs{
-		"": {
+		"global": {
 			Label: prefix,
 			Unit:  mp.UnitInteger,
 			Metrics: []mp.Metrics{
