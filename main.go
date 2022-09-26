@@ -28,30 +28,7 @@ func userAgent() string {
 	return fmt.Sprintf("mackerel-plugin-sendgrid/%s", version)
 }
 
-type JSONDate string
-
-func (d JSONDate) String() string {
-	return fmt.Sprintf(`"%s"`, d.Time().Format(time.RFC3339))
-}
-
-func (d JSONDate) Time() time.Time {
-	t, err := time.Parse("2006-01-02", string(d))
-	if err != nil {
-		log.Printf(`failed to parse time value "%s": %s`, string(d), err)
-	}
-
-	return t
-}
-
-func (d *JSONDate) UnmarshalJSON(buf []byte) error {
-	s := bytes.Trim(buf, `"`)
-	*d = JSONDate(string(s))
-
-	return nil
-}
-
 type SendgridStats struct {
-	Date  JSONDate       `json:"date,omitempty"`
 	Stats []SendgridStat `json:"stats,omitempty"`
 }
 
