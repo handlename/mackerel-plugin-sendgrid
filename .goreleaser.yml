@@ -1,0 +1,26 @@
+before:
+  hooks:
+    - go mod download
+builds:
+  - main: ./main.go
+    binary: mackerel-plugin-sendgrid
+    ldflags:
+      - "-s"
+      - "-w"
+      - "-X main.version={{ .Version }}"
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm64
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^chore:"
+      - "^docs:"
+      - "^refactor:"
+      - "^test:"
+
