@@ -78,7 +78,6 @@ func (s SendgridPlugin) FetchMetrics() (map[string]float64, error) {
 	query.Add("start_date", date.Format("2006-01-02"))
 	query.Add("end_date", date.Format("2006-01-02"))
 	api.RawQuery = query.Encode()
-	log.Printf("request url: %s", api)
 
 	req, err := http.NewRequest("GET", api.String(), nil)
 	if err != nil {
