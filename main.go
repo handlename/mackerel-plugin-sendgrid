@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"time"
 
 	mp "github.com/mackerelio/go-mackerel-plugin"
@@ -144,9 +145,15 @@ func (s SendgridPlugin) MetricKeyPrefix() string {
 }
 
 func main() {
+	optVersion := flag.Bool("version", false, "show version")
 	optPrefix := flag.String("metric-key-prefix", "sendgrid", "Metric key prefix")
 	optSendgridAPIKey := flag.String("sendgrid-apikey", "", "API key of Sendgrid (needs access permission to get Stats)")
 	flag.Parse()
+
+	if *optVersion {
+		fmt.Printf("mackerel-plugin-sendgrid %s", version)
+		os.Exit(0)
+	}
 
 	s := SendgridPlugin{
 		Prefix:         *optPrefix,
